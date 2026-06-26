@@ -3,7 +3,7 @@
 **Date:** 2026-06-20
 **Spikes processed:** 8 (all VALIDATED)
 **Feature areas:** Text Sentiment, Visualization, Voice Tone, Mood Fusion, Override UX, Persistence, Offline-First
-**Skill output:** `./.claude/skills/spike-findings-voice-diary/`
+**Skill output:** `./.claude/skills/spike-findings-mood-flow/`
 
 ## Processed Spikes
 

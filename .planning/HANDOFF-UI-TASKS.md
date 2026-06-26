@@ -1,4 +1,4 @@
-# Handoff: UI/UX Task Generation for Voice Diary
+# Handoff: UI/UX Task Generation for Mood Flow
 
 **Date**: 2026-06-21
 **Source**: `/speckit-analyze` findings (12 items)
@@ -49,11 +49,11 @@ All in `.planning/spikes/`:
 
 ## Existing Spec/Plan/Tasks
 
-- **Spec**: `specs/001-voice-diary-app/spec.md` — FR-016 (responsive), FR-024 (mood badge), FR-025 (override)
-- **Plan**: `specs/001-voice-diary-app/plan.md` — vanilla JS, Vite, dark theme
-- **Current tasks**: `specs/001-voice-diary-app/tasks.md` — all 76 tasks [x] complete
-- **Contracts**: `specs/001-voice-diary-app/contracts/service-interfaces.md`
-- **Data model**: `specs/001-voice-diary-app/data-model.md`
+- **Spec**: `specs/001-mood-flow-app/spec.md` — FR-016 (responsive), FR-024 (mood badge), FR-025 (override)
+- **Plan**: `specs/001-mood-flow-app/plan.md` — vanilla JS, Vite, dark theme
+- **Current tasks**: `specs/001-mood-flow-app/tasks.md` — all 76 tasks [x] complete
+- **Contracts**: `specs/001-mood-flow-app/contracts/service-interfaces.md`
+- **Data model**: `specs/001-mood-flow-app/data-model.md`
 
 ## Suggested Phase Structure for New Tasks
 

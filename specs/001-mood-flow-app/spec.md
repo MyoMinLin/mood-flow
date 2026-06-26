@@ -1,6 +1,6 @@
-# Feature Specification: Voice Diary App
+# Feature Specification: Mood Flow App
 
-**Feature Branch**: `001-voice-diary-app`
+**Feature Branch**: `001-mood-flow-app`
 
 **Created**: 2026-06-20
 

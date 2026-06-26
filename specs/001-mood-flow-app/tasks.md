@@ -1,6 +1,6 @@
-# Tasks: Voice Diary App
+# Tasks: Mood Flow App
 
-**Input**: Design documents from `/specs/001-voice-diary-app/`
+**Input**: Design documents from `/specs/001-mood-flow-app/`
 
 **Prerequisites**: plan.md (required), spec.md (required), research.md, data-model.md, contracts/
 
@@ -20,7 +20,7 @@
 
 **Purpose**: Project initialization with Vite, dependencies, and basic structure
 
-- [x] T001 Initialize Vite project with vanilla JS template: `npm create vite@latest voice-diary -- --template vanilla`
+- [x] T001 Initialize Vite project with vanilla JS template: `npm create vite@latest mood-flow -- --template vanilla`
 - [x] T002 Install dependencies: sql.js (`npm install sql.js`) and Vitest (`npm install -D vitest`)
 - [x] T003 Create directory structure per plan: `src/db/`, `src/components/`, `src/services/`, `src/utils/`, `src/styles/`, `public/`, `tests/`
 - [x] T004 [P] Configure Vite to copy sql-wasm.wasm to public/ in `vite.config.js`

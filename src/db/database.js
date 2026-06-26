@@ -21,7 +21,7 @@ export async function init() {
   const wasmBinary = await fetch('/sql-wasm.wasm').then(r => r.arrayBuffer());
   const SQL = await initSqlJs({ wasmBinary: new Uint8Array(wasmBinary) });
 
-  const stored = localStorage.getItem('voice-diary-db');
+  const stored = localStorage.getItem('mood-flow-db');
   if (stored) {
     const binStr = atob(stored);
     const data = Uint8Array.from(binStr, c => c.charCodeAt(0));
@@ -82,7 +82,7 @@ export function save() {
   if (!db) return;
   const data = db.export();
   const binStr = Array.from(data, b => String.fromCharCode(b)).join('');
-  localStorage.setItem('voice-diary-db', btoa(binStr));
+  localStorage.setItem('mood-flow-db', btoa(binStr));
 }
 
 export function close() {

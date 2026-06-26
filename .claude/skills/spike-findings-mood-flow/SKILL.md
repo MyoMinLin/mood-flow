@@ -1,10 +1,10 @@
 ---
-name: spike-findings-voice-diary
-description: Implementation blueprint from spike experiments. Requirements, proven patterns, and verified knowledge for building voice-diary. Auto-loaded during implementation work.
+name: spike-findings-mood-flow
+description: Implementation blueprint from spike experiments. Requirements, proven patterns, and verified knowledge for building mood-flow. Auto-loaded during implementation work.
 ---
 
 <context>
-## Project: voice-diary
+## Project: mood-flow
 
 VoiceDiary is evolving into an AI-aware emotional journal. The first major feature is mood & emotion tracking — AI detects mood from voice entries (via text transcription), user can override, and the app shows mood per-entry, as a timeline/chart, and as weekly AI-generated insights. Client-side only Vite app, no backend.
 

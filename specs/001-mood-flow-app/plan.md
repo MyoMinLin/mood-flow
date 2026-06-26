@@ -1,8 +1,8 @@
-# Implementation Plan: Voice Diary App
+# Implementation Plan: Mood Flow App
 
-**Branch**: `001-voice-diary-app` | **Date**: 2026-06-20 | **Spec**: [spec.md](./spec.md)
+**Branch**: `001-mood-flow-app` | **Date**: 2026-06-20 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/001-voice-diary-app/spec.md`
+**Input**: Feature specification from `/specs/001-mood-flow-app/spec.md`
 
 ## Summary
 
@@ -39,7 +39,7 @@ No project constitution found (`.specify/memory/constitution.md` is a template).
 ### Documentation (this feature)
 
 ```text
-specs/001-voice-diary-app/
+specs/001-mood-flow-app/
 ├── plan.md              # This file
 ├── research.md          # Phase 0 output
 ├── data-model.md        # Phase 1 output
