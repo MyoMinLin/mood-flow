@@ -18,7 +18,7 @@ CREATE INDEX IF NOT EXISTS idx_entry_date ON diary_entries(entry_date);
 `;
 
 export async function init() {
-  const wasmBinary = await fetch('/sql-wasm.wasm').then(r => r.arrayBuffer());
+  const wasmBinary = await fetch(`${import.meta.env.BASE_URL}sql-wasm.wasm`).then(r => r.arrayBuffer());
   const SQL = await initSqlJs({ wasmBinary: new Uint8Array(wasmBinary) });
 
   const stored = localStorage.getItem('mood-flow-db');

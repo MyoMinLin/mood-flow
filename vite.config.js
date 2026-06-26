@@ -16,7 +16,7 @@ export default defineConfig({
       name: 'serve-wasm',
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
-          if (req.url === '/sql-wasm.wasm') {
+          if (req.url === '/mood-flow/sql-wasm.wasm') {
             const filePath = join(process.cwd(), 'public', 'sql-wasm.wasm');
             if (existsSync(filePath)) {
               res.setHeader('Content-Type', 'application/wasm');
