@@ -3,6 +3,7 @@ import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
 export default defineConfig({
+  base: '/mood-flow/',
   publicDir: 'public',
   server: {
     port: 6001,
