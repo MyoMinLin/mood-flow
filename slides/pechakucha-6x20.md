@@ -2,6 +2,7 @@
 marp: true
 theme: default
 paginate: true
+auto-advance: 20
 size: 16:9
 style: |
   section {
