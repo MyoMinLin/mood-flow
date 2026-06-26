@@ -1,0 +1,11 @@
+{
+  "name": "spike-008-offline-first",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "vite", "build": "vite build" },
+  "devDependencies": { "vite": "^6.0.0" },
+  "dependencies": {
+    "sentiment": "^5.0.2",
+    "@huggingface/transformers": "^3.0.0"
+  }
+}

@@ -1,0 +1,943 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg: #0f0f0f;
+  --surface: #1a1a1a;
+  --text: #e0e0e0;
+  --text-muted: #888888;
+  --border: #333333;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --success: #22c55e;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-voice {
+  background: #7c3aed;
+  color: white;
+}
+
+.btn-voice:hover {
+  background: #6d28d9;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: var(--danger-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  background: #222;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Calendar */
+.calendar {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.calendar-header h2 {
+  font-size: 1.1rem;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-nav button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.calendar-nav button:hover {
+  background: #222;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  padding: 8px;
+}
+
+.calendar-day-name {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.calendar-day:hover {
+  background: #222;
+}
+
+.calendar-day.today {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.calendar-day.selected {
+  background: var(--primary);
+  color: white;
+}
+
+.calendar-day.selected:hover {
+  background: var(--primary-hover);
+}
+
+.calendar-day.other-month {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.calendar-day .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  position: absolute;
+  bottom: 4px;
+}
+
+.calendar-day.selected .dot {
+  background: white;
+}
+
+/* Entry List */
+.entry-list {
+  margin-top: 16px;
+}
+
+.entry-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.entry-list-header h3 {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.entry-item {
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid #333;
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1rem;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-item:hover {
+  border-color: #555;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.entry-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-item-type {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #1e293b;
+  color: #60a5fa;
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin-bottom: 4px;
+}
+
+.entry-item-preview {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-item-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: 12px;
+}
+
+.entry-item-icon {
+  font-size: 1.2rem;
+  margin-left: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+/* Editor / Viewer */
+.editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.editor-panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-header h2 {
+  font-size: 1.1rem;
+}
+
+.editor-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.editor-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.mode-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.mode-toggle button {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.mode-toggle button.active {
+  background: var(--primary);
+  color: white;
+}
+
+.mode-toggle button:not(.active):hover {
+  background: #222;
+}
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Voice Recorder */
+.voice-recorder {
+  text-align: center;
+  padding: 24px;
+}
+
+.voice-recorder canvas {
+  width: 100%;
+  height: 80px;
+  background: #111;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.record-btn {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid var(--danger);
+  background: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.record-btn:hover {
+  transform: scale(1.05);
+}
+
+.record-btn .record-dot {
+  width: 32px;
+  height: 32px;
+  background: var(--danger);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.record-btn.recording {
+  animation: pulse 1.5s infinite;
+}
+
+.record-btn.recording .record-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+}
+
+.recording-time {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 8px;
+}
+
+.recording-status {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+.audio-preview {
+  margin-top: 16px;
+}
+
+.audio-preview audio {
+  width: 100%;
+}
+
+.transcription-result {
+  margin-top: 16px;
+  text-align: left;
+}
+
+.transcription-result textarea {
+  min-height: 100px;
+}
+
+/* View mode */
+.view-content {
+  white-space: pre-wrap;
+  line-height: 1.8;
+  padding: 8px 0;
+}
+
+.view-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* Toast */
+.toast-container {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  color: white;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+}
+
+.toast-info { background: var(--primary); }
+.toast-success { background: var(--success); }
+.toast-error { background: var(--danger); }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #app { padding: 8px; }
+  .header h1 { font-size: 1.25rem; }
+  .calendar-day { font-size: 0.8rem; }
+  .editor-panel { max-height: 100vh; border-radius: 0; }
+  .btn { padding: 6px 12px; font-size: 0.8rem; }
+}
+
+@media (max-width: 375px) {
+  .calendar-grid { padding: 4px; }
+  .calendar-day { font-size: 0.7rem; }
+  .calendar-day .dot { width: 3px; height: 3px; bottom: 2px; }
+}
+
+/* Mood Colors — from spike 006 */
+.mood-positive { background: #052e16; color: #22c55e; }
+.mood-content  { background: #052e16; color: #4ade80; }
+.mood-neutral  { background: #422006; color: #eab308; }
+.mood-anxious  { background: #431407; color: #f97316; }
+.mood-negative { background: #450a0a; color: #ef4444; }
+.mood-mixed    { background: #1e1b4b; color: #a78bfa; }
+
+/* Mood Selector */
+.mood-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.mood-selector-btn {
+  padding: 0.35rem 0.75rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mood-selector-btn:hover {
+  filter: brightness(1.2);
+}
+
+.mood-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  min-width: 160px;
+}
+
+.mood-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: background 0.1s;
+}
+
+.mood-option:hover {
+  background: #333;
+}
+
+.mood-option.active {
+  background: #333;
+  font-weight: 600;
+}
+
+/* Mood Chart */
+.mood-chart-container {
+  margin: 16px 0;
+  padding: 1.5rem;
+  background: #1a1a1a;
+  border-radius: 12px;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.mood-chart-subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0 0 0.75rem;
+}
+
+.mood-chart-controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 12px;
+}
+
+.mood-chart-controls .btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mood-chart-controls .btn-sm:hover {
+  border-color: #555;
+  color: #fff;
+}
+
+.mood-chart-controls .btn-sm.active {
+  border-color: #2563eb;
+  color: #60a5fa;
+  background: #1e293b;
+}
+
+.mood-chart-wrapper {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mood-chart-wrapper canvas {
+  display: block;
+}
+
+.mood-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.mood-stat-chip {
+  text-align: center;
+  padding: 0.75rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* Mood Legend */
+.mood-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.mood-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.mood-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Mood Badge — colored pill from spike 006 */
+.mood-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: default;
+}
+
+.mood-confidence {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.mood-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid #222;
+  border-bottom: none;
+}
+
+/* Entry list mood indicators */
+.entry-item-mood {
+  font-size: 1.1rem;
+  margin-left: 8px;
+}
+
+/* Voice Feature Meters (U6) */
+.meter-container {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.meter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.meter-row:last-child {
+  margin-bottom: 0;
+}
+
+.meter-label {
+  font-size: 0.8rem;
+  color: #888;
+  min-width: 80px;
+  text-align: left;
+}
+
+.meter-bar {
+  flex: 1;
+  height: 8px;
+  background: #222;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.meter-value {
+  font-size: 0.8rem;
+  color: #aaa;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Fusion Card (U8) */
+.fusion-card {
+  background: #1a1a1a;
+  border: 2px solid #7c3aed;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.fusion-card h4 {
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  color: #c4b5fd;
+}
+
+.fusion-sources {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.fusion-source {
+  flex: 1;
+  padding: 0.75rem;
+  background: #111;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.fusion-source-label {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.agree-box {
+  background: #052e16;
+  border: 1px solid #22c55e;
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: #4ade80;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.conflict-box {
+  background: #451a03;
+  border: 1px solid #f97316;
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: #fb923c;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* Override Badge (U3) */
+.override-badge {
+  color: #f97316;
+  background: #451a03;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Status Bar & Loader (U11) */
+.status-bar {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-bar.loading {
+  border-color: #2563eb;
+  color: #60a5fa;
+}
+
+.status-bar.ready {
+  border-color: #22c55e;
+  color: #4ade80;
+}
+
+.loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #333;
+  border-top-color: #60a5fa;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Settings */
+.settings-btn {
+  font-size: 1.2rem;
+  padding: 6px 10px;
+}
+
+.settings-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 16px;
+  width: 300px;
+  z-index: 50;
+}
+
+.settings-panel h3 {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.settings-status {
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+}
+
+.settings-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #111;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: monospace;
+  margin-bottom: 12px;
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.settings-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.settings-btn-row .btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}

@@ -1,0 +1,16 @@
+{
+  "name": "spike-002-web-worker-integration",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.0.0"
+  }
+}

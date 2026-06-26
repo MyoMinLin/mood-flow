@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spike 004: Mood from Voice Tone</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
+    .subtitle { color: #888; margin-bottom: 2rem; font-size: 0.9rem; }
+
+    .record-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .record-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid #ef4444;
+      background: #1a1a1a;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .record-btn:hover { border-color: #f87171; }
+    .record-btn.recording {
+      background: #ef4444;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .record-btn .dot {
+      width: 30px;
+      height: 30px;
+      background: #ef4444;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.2s;
+    }
+    .record-btn.recording .dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+    }
+    .record-label { font-size: 0.85rem; color: #888; }
+
+    .meter-container {
+      width: 100%;
+      max-width: 500px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .meter-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .meter-row:last-child { margin-bottom: 0; }
+    .meter-label { font-size: 0.8rem; color: #888; min-width: 80px; }
+    .meter-bar {
+      flex: 1;
+      height: 8px;
+      background: #222;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .meter-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.1s;
+      width: 0%;
+    }
+    .meter-value { font-size: 0.8rem; color: #aaa; min-width: 50px; text-align: right; }
+
+    .results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 700px) { .results { grid-template-columns: 1fr; } }
+
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .card h2 {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+    .mood-display {
+      text-align: center;
+      padding: 1rem;
+    }
+    .mood-emoji { font-size: 3rem; }
+    .mood-label { font-size: 1.2rem; font-weight: 600; margin-top: 0.5rem; }
+    .mood-confidence { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .feature-item {
+      background: #111;
+      border-radius: 6px;
+      padding: 0.6rem;
+    }
+    .feature-label { font-size: 0.7rem; color: #666; }
+    .feature-value { font-size: 1rem; font-weight: 600; }
+
+    .history {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .history h2 { font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+    .history-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #222;
+      font-size: 0.85rem;
+    }
+    .history-row:last-child { border-bottom: none; }
+
+    .positive { color: #22c55e; }
+    .negative { color: #ef4444; }
+    .neutral { color: #eab308; }
+    .anxious { color: #f97316; }
+
+    canvas#visualizer {
+      width: 100%;
+      height: 80px;
+      background: #111;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spike 004: Mood from Voice Tone</h1>
+  <p class="subtitle">Analyze pitch, energy, and spectral features from your voice — no transcription needed</p>
+
+  <div class="record-area">
+    <canvas id="visualizer"></canvas>
+    <button class="record-btn" id="recordBtn" onclick="toggleRecording()">
+      <div class="dot"></div>
+    </button>
+    <span class="record-label" id="recordLabel">Click to record</span>
+  </div>
+
+  <div class="meter-container" id="meters">
+    <div class="meter-row">
+      <span class="meter-label">Pitch</span>
+      <div class="meter-bar"><div class="meter-fill" id="pitchFill" style="background:#22c55e"></div></div>
+      <span class="meter-value" id="pitchValue">— Hz</span>
+    </div>
+    <div class="meter-row">
+      <span class="meter-label">Energy</span>
+      <div class="meter-bar"><div class="meter-fill" id="energyFill" style="background:#2563eb"></div></div>
+      <span class="meter-value" id="energyValue">—</span>
+    </div>
+    <div class="meter-row">
+      <span class="meter-label">Brightness</span>
+      <div class="meter-bar"><div class="meter-fill" id="brightnessFill" style="background:#eab308"></div></div>
+      <span class="meter-value" id="brightnessValue">—</span>
+    </div>
+    <div class="meter-row">
+      <span class="meter-label">Speech Rate</span>
+      <div class="meter-bar"><div class="meter-fill" id="rateFill" style="background:#a78bfa"></div></div>
+      <span class="meter-value" id="rateValue">—</span>
+    </div>
+  </div>
+
+  <div class="results" style="margin-top:1.5rem">
+    <div class="card">
+      <h2>Detected Mood (Voice Tone)</h2>
+      <div class="mood-display" id="toneMood">
+        <div class="mood-emoji">🎙️</div>
+        <div class="mood-label" style="color:#888">Record something first</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Audio Features</h2>
+      <div class="features-grid" id="features">
+        <div class="feature-item"><div class="feature-label">Avg Pitch</div><div class="feature-value">—</div></div>
+        <div class="feature-item"><div class="feature-label">Pitch Variance</div><div class="feature-value">—</div></div>
+        <div class="feature-item"><div class="feature-label">Avg Energy</div><div class="feature-value">—</div></div>
+        <div class="feature-item"><div class="feature-label">Peak Energy</div><div class="feature-value">—</div></div>
+        <div class="feature-item"><div class="feature-label">Spectral Centroid</div><div class="feature-value">—</div></div>
+        <div class="feature-item"><div class="feature-label">Zero Cross Rate</div><div class="feature-value">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="history">
+    <h2>Recording History</h2>
+    <div id="historyList"><p style="color:#666;font-size:0.85rem">No recordings yet</p></div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

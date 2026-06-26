@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spike 006: Mood Override UI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f; color: #e0e0e0; min-height: 100vh; padding: 2rem;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
+    .subtitle { color: #888; margin-bottom: 2rem; font-size: 0.9rem; }
+
+    .entry-list { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; }
+    .entry-card {
+      background: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+      padding: 1.25rem; transition: border-color 0.2s;
+    }
+    .entry-card:hover { border-color: #555; }
+    .entry-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .entry-date { font-size: 0.8rem; color: #666; }
+    .entry-text { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; color: #ccc; }
+
+    .mood-section {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding-top: 0.75rem; border-top: 1px solid #222;
+    }
+    .mood-display {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.75rem; border-radius: 20px;
+      font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; user-select: none;
+    }
+    .mood-display:hover { filter: brightness(1.2); }
+    .mood-display .emoji { font-size: 1.1rem; }
+    .mood-label { font-size: 0.8rem; color: #888; }
+
+    .override-badge {
+      font-size: 0.65rem; color: #f97316; background: #451a03;
+      padding: 0.15rem 0.4rem; border-radius: 4px; margin-left: 0.5rem;
+    }
+
+    /* Mood selector dropdown */
+    .mood-selector {
+      position: absolute; z-index: 100;
+      background: #1a1a1a; border: 1px solid #444; border-radius: 10px;
+      padding: 0.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      display: none;
+    }
+    .mood-selector.open { display: block; }
+    .mood-option {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.75rem; border-radius: 6px; cursor: pointer;
+      font-size: 0.85rem; transition: background 0.1s;
+    }
+    .mood-option:hover { background: #333; }
+    .mood-option .emoji { font-size: 1.2rem; }
+    .mood-option .name { flex: 1; }
+    .mood-option .check { color: #4ade80; font-size: 0.8rem; }
+
+    .stats-bar {
+      background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
+      padding: 1rem; margin-bottom: 1.5rem; display: flex; gap: 1.5rem;
+      flex-wrap: wrap; max-width: 600px;
+    }
+    .stat { text-align: center; }
+    .stat .val { font-size: 1.2rem; font-weight: 700; }
+    .stat .lbl { font-size: 0.7rem; color: #888; }
+
+    .reset-btn {
+      background: #1a1a1a; border: 1px solid #333; color: #aaa;
+      padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
+      font-size: 0.8rem; margin-bottom: 1.5rem;
+    }
+    .reset-btn:hover { border-color: #555; color: #fff; }
+
+    .positive { background: #052e16; color: #22c55e; }
+    .negative { background: #450a0a; color: #ef4444; }
+    .neutral { background: #422006; color: #eab308; }
+    .anxious { background: #431407; color: #f97316; }
+    .mixed { background: #1e1b4b; color: #a78bfa; }
+    .content { background: #052e16; color: #4ade80; }
+  </style>
+</head>
+<body>
+  <h1>Spike 006: Mood Override UI</h1>
+  <p class="subtitle">Click the AI-detected mood badge to override it with a different mood</p>
+
+  <div class="stats-bar" id="stats"></div>
+  <button class="reset-btn" onclick="resetAll()">Reset all overrides</button>
+
+  <div class="entry-list" id="entryList"></div>
+
+  <div class="mood-selector" id="moodSelector">
+    <div class="mood-option" data-mood="positive" onclick="selectMood('positive')">
+      <span class="emoji">😊</span><span class="name">Positive</span>
+    </div>
+    <div class="mood-option" data-mood="content" onclick="selectMood('content')">
+      <span class="emoji">🙂</span><span class="name">Content</span>
+    </div>
+    <div class="mood-option" data-mood="neutral" onclick="selectMood('neutral')">
+      <span class="emoji">😐</span><span class="name">Neutral</span>
+    </div>
+    <div class="mood-option" data-mood="anxious" onclick="selectMood('anxious')">
+      <span class="emoji">😰</span><span class="name">Anxious</span>
+    </div>
+    <div class="mood-option" data-mood="negative" onclick="selectMood('negative')">
+      <span class="emoji">😢</span><span class="name">Sad</span>
+    </div>
+    <div class="mood-option" data-mood="mixed" onclick="selectMood('mixed')">
+      <span class="emoji">🤔</span><span class="name">Mixed</span>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

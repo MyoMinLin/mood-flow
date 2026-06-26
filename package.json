@@ -1,0 +1,24 @@
+{
+  "name": "moodflow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "postinstall": "cp node_modules/sql.js/dist/sql-wasm.wasm public/"
+  },
+  "devDependencies": {
+    "vite": "^8.0.12",
+    "vitest": "^3.2.1"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "chart.js": "^4.5.1",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "sentiment": "^5.0.2",
+    "sql.js": "^1.12.0"
+  }
+}
