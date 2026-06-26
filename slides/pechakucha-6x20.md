@@ -92,6 +92,6 @@ Personal journaling with voice input and emotional insights
 
 # Demo & Questions
 
-**Try it**: `npm run dev`
+**Try it**: https://myominlin.github.io/mood-flow/
 
-github.com/yourusername/mood-flow
+github.com/myominlin/mood-flow
